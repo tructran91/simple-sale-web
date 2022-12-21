@@ -1,4 +1,4 @@
-import { Paper, Typography } from '@mui/material';
+import { Paper, Skeleton, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import brandApi from '../../src/api/brandApi';
@@ -9,31 +9,49 @@ export default function AdminBrandModify() {
     const router = useRouter();
     const { query: { id } } = router;
     const isAddMode = !id;
-    const initialBrand: BrandModel = {
+    const [brand, setBrand] = useState<BrandModel>({
         id: "",
         name: "",
         slug: "",
         isPublished: false
-    };
-    const [brand, setBrand] = useState<BrandModel>(initialBrand);
+    });
+    const [isLoadingData, setIsLoadingData] = useState(false);
 
     useEffect(() => {
         if (!isAddMode) {
-            async () => {
+            setIsLoadingData(true);
+            const getBrand = async () => {
                 const response = await brandApi.get(id?.toString());
                 setBrand(response);
+                setIsLoadingData(false);
             }
+
+            getBrand();
         }
-    }, []);
+    }, [isAddMode]);
 
     const handleSubmit = async (data: BrandModel) => {
-        const response = await brandApi.post(data);
+        if (isAddMode) {
+            await brandApi.post(data);
+        }
+        else {
+            await brandApi.put(data.id, data);
+        }
+        router.push('/brand')
     }
 
     return (
         <Paper variant="outlined" sx={{ my: { xs: 2, md: 4 }, p: { xs: 2, md: 3 } }}>
-            <Typography variant="h5" align="center" sx={{ mb: 2 }}>Create Brand</Typography>
-            <AdminBrandForm brand={brand} isAddMode={isAddMode} onSubmit={handleSubmit} />
+            <Typography variant="h5" align="center" sx={{ mb: 2 }}>
+                {isAddMode ? 'Create Brand' : 'Update Brand'}
+            </Typography>
+            {isLoadingData ?
+                (<div>
+                    <Skeleton />
+                    <Skeleton />
+                    <Skeleton />
+                </div>) :
+                <AdminBrandForm brand={brand} onSubmit={handleSubmit} />}
         </Paper>
     )
 }

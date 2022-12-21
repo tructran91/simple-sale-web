@@ -26,6 +26,15 @@ const brandApi = {
                 console.log(response);
             });
     },
+
+    put: (id: string, data: BrandModel) => {
+        const url = `/api/admin/brand/${id}`;
+        return axiosClient
+            .put(url, data)
+            .then(response => {
+                console.log(response);
+            });
+    },
 };
 
 export default brandApi;

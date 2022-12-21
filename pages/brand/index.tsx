@@ -12,10 +12,12 @@ export default function AdminBrandIndex() {
   const [brands, setBrands] = useState<BrandModel[]>([]);
 
   useEffect(() => {
-    async () => {
+    const getBrands = async () => {
       const response = await brandApi.getAll();
       setBrands(response);
     }
+
+    getBrands();
   }, [])
 
   return (

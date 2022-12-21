@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import SaveIcon from '@mui/icons-material/Save';
@@ -20,13 +19,13 @@ const schema = yup.object().shape({
 
 interface IAdminBrandForm {
     brand: BrandModel,
-    isAddMode: boolean,
     onSubmit: any
 }
 
 const AdminBrandForm: React.FC<IAdminBrandForm> = (props) => {
-    const { brand, isAddMode, onSubmit } = props;
+    const { brand, onSubmit } = props;
     const [slug, setSlug] = useState(brand.slug);
+    console.log('AdminBrandForm', props);
 
     const { register, handleSubmit, formState: { errors } } = useForm<BrandModel>({
         resolver: yupResolver(schema)
@@ -38,16 +37,17 @@ const AdminBrandForm: React.FC<IAdminBrandForm> = (props) => {
     }
 
     return (
-        <form onSubmit={handleSubmit(props.onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)}>
+            <input type="hidden" {...register('id')} value={brand.id} />
             <Grid container spacing={3}>
                 <Grid item xs={12}>
-                    <TextField label="Name" fullWidth variant="standard" {...register('name')} error={!!errors.name} helperText={errors?.name?.message} onChange={handleChangeName} />
+                    <TextField label="Name" fullWidth variant="standard" {...register('name')} defaultValue={brand.name} error={!!errors.name} helperText={errors?.name?.message} onChange={handleChangeName} />
                 </Grid>
                 <Grid item xs={12}>
-                    <TextField required id="slug" name="slug" label="Slug" fullWidth variant="standard" disabled defaultValue={slug} value={slug} />
+                    <TextField label="Slug" fullWidth variant="standard" disabled defaultValue={slug} value={slug} />
                 </Grid>
                 <Grid item xs={12}>
-                    <FormControlLabel control={<Checkbox defaultChecked {...register('isPublished')} />} label="Is Published" />
+                    <FormControlLabel control={<Checkbox defaultChecked={brand.isPublished} {...register('isPublished')} />} label="Is Published" />
                 </Grid>
             </Grid>
 
