@@ -12,7 +12,7 @@ const AdminBrandList: React.FC<IAdminBrandList> = (props) => {
     const { brands } = props;
 
     return (
-        <Table>
+        <Table size='small'>
             <TableHead>
                 <TableRow>
                     <TableCell>Name</TableCell>

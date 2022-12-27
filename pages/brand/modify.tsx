@@ -42,7 +42,7 @@ export default function AdminBrandModify() {
 
     return (
         <Paper variant="outlined" sx={{ my: { xs: 2, md: 4 }, p: { xs: 2, md: 3 } }}>
-            <Typography variant="h5" align="center" sx={{ mb: 2 }}>
+            <Typography variant="h5" align="center" sx={{ mb: 2 }} color="primary">
                 {isAddMode ? 'Create Brand' : 'Update Brand'}
             </Typography>
             {isLoadingData ?

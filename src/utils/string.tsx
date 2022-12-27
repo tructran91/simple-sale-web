@@ -1,4 +1,4 @@
-export const convertToSlug = (text) => {
+export const convertToSlug = (text: string) => {
     // Chuyển hết sang chữ thường
     text = text.toLowerCase();
 
@@ -24,4 +24,8 @@ export const convertToSlug = (text) => {
 
     // return
     return text;
+}
+
+export const capitalizeFirstLetter = (text: string) => {
+    return text.charAt(0).toUpperCase() + text.slice(1);
 }
