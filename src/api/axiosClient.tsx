@@ -20,7 +20,7 @@ axiosClient.interceptors.request.use(async (config) => {
 
 axiosClient.interceptors.response.use(
     (response) => {
-        console.log('axiosClient response', response);
+        // console.log('axiosClient response', response);
         if (response && response) {
             return response;
         }

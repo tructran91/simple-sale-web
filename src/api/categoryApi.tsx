@@ -1,13 +1,13 @@
-import { BrandModel } from "../models/brandModel";
+import { CategoryModel } from "src/models/categoryModel";
 import axiosClient from "./axiosClient";
 
-const prefixApi = "/api/admin/brand";
+const prefixApi = "/api/admin/category";
 
-const brandApi = {
+const categoryApi = {
     getAll: () => {
         const url = prefixApi;
         return axiosClient
-            .get<BrandModel[]>(url)
+            .get<CategoryModel[]>(url)
             .then(response => {
                 return response.data;
             });
@@ -15,13 +15,13 @@ const brandApi = {
 
     get: (id: string) => {
         const url = `${prefixApi}/${id}`;
-        return axiosClient.get<BrandModel>(url)
+        return axiosClient.get<CategoryModel>(url)
             .then(response => {
                 return response.data;
             });
     },
 
-    post: (data: BrandModel) => {
+    post: (data: CategoryModel) => {
         return axiosClient
             .post(prefixApi, data)
             .then(response => {
@@ -29,7 +29,7 @@ const brandApi = {
             });
     },
 
-    put: (id: string, data: BrandModel) => {
+    put: (id: string, data: CategoryModel) => {
         const url = `${prefixApi}/${id}`;
         return axiosClient
             .put(url, data)
@@ -39,4 +39,4 @@ const brandApi = {
     },
 };
 
-export default brandApi;
+export default categoryApi;

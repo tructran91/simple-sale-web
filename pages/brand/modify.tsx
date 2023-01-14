@@ -17,31 +17,32 @@ export default function AdminBrandModify() {
     });
     const [isLoadingData, setIsLoadingData] = useState(false);
 
-    useEffect(() => {
-        if (!isAddMode) {
-            setIsLoadingData(true);
-            const getBrand = async () => {
-                const response = await brandApi.get(id?.toString());
-                setBrand(response);
-                setIsLoadingData(false);
-            }
+    // useEffect(() => {
+    //     if (!isAddMode) {
+    //         setIsLoadingData(true);
+    //         const getBrand = async () => {
+    //             const response = await brandApi.get(id?.toString());
+    //             setBrand(response);
+    //             setIsLoadingData(false);
+    //         }
 
-            getBrand();
-        }
-    }, [isAddMode]);
+    //         getBrand();
+    //     }
+    // }, [isAddMode]);
 
     const handleSubmit = async (data: BrandModel) => {
-        if (isAddMode) {
-            await brandApi.post(data);
-        }
-        else {
-            await brandApi.put(data.id, data);
-        }
-        router.push('/brand')
+        // if (isAddMode) {
+        //     await brandApi.post(data);
+        // }
+        // else {
+        //     await brandApi.put(data.id, data);
+        // }
+        // router.push('/brand')
     }
 
     return (
         <Paper variant="outlined" sx={{ my: { xs: 2, md: 4 }, p: { xs: 2, md: 3 } }}>
+            {/* <ToastContent message='123' type='error' /> */}
             <Typography variant="h5" align="center" sx={{ mb: 2 }} color="primary">
                 {isAddMode ? 'Create Brand' : 'Update Brand'}
             </Typography>

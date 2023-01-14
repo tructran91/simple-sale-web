@@ -25,7 +25,6 @@ interface IAdminBrandForm {
 const AdminBrandForm: React.FC<IAdminBrandForm> = (props) => {
     const { brand, onSubmit } = props;
     const [slug, setSlug] = useState(brand.slug);
-    console.log('AdminBrandForm', props);
 
     const { register, handleSubmit, formState: { errors } } = useForm<BrandModel>({
         resolver: yupResolver(schema)
@@ -44,7 +43,7 @@ const AdminBrandForm: React.FC<IAdminBrandForm> = (props) => {
                     <TextField label="Name" fullWidth variant="standard" {...register('name')} defaultValue={brand.name} error={!!errors.name} helperText={errors?.name?.message} onChange={handleChangeName} />
                 </Grid>
                 <Grid item xs={12}>
-                    <TextField label="Slug" fullWidth variant="standard" disabled defaultValue={slug} value={slug} />
+                    <TextField label="Slug" fullWidth variant="standard" disabled value={slug} />
                 </Grid>
                 <Grid item xs={12}>
                     <FormControlLabel control={<Checkbox defaultChecked={brand.isPublished} {...register('isPublished')} />} label="Is Published" />
