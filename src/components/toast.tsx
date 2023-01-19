@@ -1,6 +1,7 @@
 import { Snackbar, Stack } from "@mui/material";
 import MuiAlert, { AlertProps } from '@mui/material/Alert';
 import React, { forwardRef, useEffect, useState } from "react";
+import { ToastModel } from "src/models/configModel";
 
 const Alert = forwardRef<HTMLDivElement, AlertProps>(function Alert(
     props,
@@ -9,20 +10,13 @@ const Alert = forwardRef<HTMLDivElement, AlertProps>(function Alert(
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-interface IToastContent {
-    message: string,
-    type?: string
-}
-
-const ToastContent: React.FC<IToastContent> = (props) => {
-    const { message, type = "" } = props;
-    const [open, setOpen] = useState(false);
-    console.log('toats content');
+const ToastContent: React.FC<ToastModel> = (props) => {
+    const { message = "", type = "success", isOpen } = props;
+    const [open, setOpen] = useState(isOpen);
     
-
     useEffect(() => {
-        setOpen(true);
-    }, [])
+        setOpen(isOpen);
+    }, [isOpen])
 
     const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
         if (reason === 'clickaway') {
@@ -34,8 +28,8 @@ const ToastContent: React.FC<IToastContent> = (props) => {
 
     return (
         <Stack spacing={2} sx={{ width: '100%' }}>
-            <Snackbar open={open} autoHideDuration={4000} onClose={handleClose}>
-                <Alert onClose={handleClose} severity='error' sx={{ width: '100%' }}>{message}</Alert>
+            <Snackbar open={open} autoHideDuration={4000} onClose={handleClose} anchorOrigin={{ vertical: 'top', horizontal: 'right' }}>
+                <Alert onClose={handleClose} severity={type} sx={{ width: '100%' }}>{message}</Alert>
             </Snackbar>
         </Stack>
     );

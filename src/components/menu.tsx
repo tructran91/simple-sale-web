@@ -62,14 +62,14 @@ const MenuItems: React.FC<IMenuItems> = (props) => {
                         <ListItemText primary="Product" />
                     </ListItemButton>
 
-                    <ListItemButton selected={selectedIndex == 'reports'}>
+                    {/* <ListItemButton selected={selectedIndex == 'reports'}>
                         <ListItemIcon>
                             <BarChartIcon />
                         </ListItemIcon>
                         <ListItemText primary="Reports" />
-                    </ListItemButton>
+                    </ListItemButton> */}
 
-                    <Divider sx={{ my: 1 }} />
+                    {/* <Divider sx={{ my: 1 }} />
 
                     <ListSubheader component="div" inset>
                         Saved reports
@@ -91,7 +91,7 @@ const MenuItems: React.FC<IMenuItems> = (props) => {
                             <AssignmentIcon />
                         </ListItemIcon>
                         <ListItemText primary="Year-end sale" />
-                    </ListItemButton>
+                    </ListItemButton> */}
                 </React.Fragment>
             </List>
         </>

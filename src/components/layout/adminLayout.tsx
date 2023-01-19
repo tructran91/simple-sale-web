@@ -8,6 +8,9 @@ import { Badge, Box, Container, CssBaseline, Divider, IconButton, Toolbar, Typog
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { capitalizeFirstLetter } from 'src/utils/string';
+import ToastContent from '../toast';
+import { useSelector } from 'react-redux';
+import { ToastModel } from 'src/models/configModel';
 
 const drawerWidth = 240;
 
@@ -64,6 +67,9 @@ function AdminLayout({ Component, pageProps }) {
     const toggleDrawer = () => {
         setOpen(!open);
     };
+    const system = useSelector<any, ToastModel>(state => state.systems);
+    console.log('system', system);
+
     useEffect(() => {
         const firstPath = router.pathname.split('/')[1];
         if (firstPath) {
@@ -77,6 +83,8 @@ function AdminLayout({ Component, pageProps }) {
 
     return (
         <ThemeProvider theme={mdTheme}>
+            <ToastContent message={system.message} type={system.type} isOpen={system.isOpen} />
+            
             <Box sx={{ display: 'flex' }}>
                 <CssBaseline />
                 <AppBar position="absolute" open={open}>
